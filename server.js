@@ -9,7 +9,8 @@ var express = require('express');
 var app = express();
 
 // mount on port 3000
-var server = app.listen(3000);
+const PORT = process.env.PORT || 3000;
+var server = app.listen(PORT);
 
 app.use(express.static('public'));
 
