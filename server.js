@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 console.log("Server is running!");
 var client_sockets = [];
 
-io.sockets.on('connection', newConnection);
+io.on('connection', newConnection);
 function newConnection(socket) {
     console.log('socket id: ', socket.id);
     client_sockets.push(socket);
