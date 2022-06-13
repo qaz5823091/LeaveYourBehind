@@ -8,7 +8,7 @@ var names;
 var is_start = false;
 var is_end = false;
 
-socket = io.connect('http://localhost:3000');
+socket = io.connect('https://leave-your-behind.herokuapp.com/');
 socket.on('config', getConfig);
 socket.on('message', (msg) => {
     if (msg['status'] == 'error') {

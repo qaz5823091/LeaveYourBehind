@@ -5,16 +5,14 @@ const TIME_LIMIT = 30;
 
 var config = new Config();
 
-var express = require('express');
 var path = require('path');
-var app = express();
+const express = require('express');
+const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require('socket.io');
+const { Server } = require("socket.io");
 const io = new Server(server);
 
-// mount on port 3000
-const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
@@ -24,8 +22,7 @@ app.get('/', (req, res) => {
 console.log("Server is running!");
 var client_sockets = [];
 
-io.on('connection', newConnection);
-function newConnection(socket) {
+io.on('connection', (socket) => {
     console.log('socket id: ', socket.id);
     client_sockets.push(socket);
     console.log(client_sockets.length);
@@ -66,8 +63,8 @@ function newConnection(socket) {
 
     socket.on('disconnect', (id) => {
     });
-}
+});
 
-server.listen(PORT, () => {
-    console.log('listening on *:', PORT);
+server.listen(3000, () => {
+    console.log('listening on *:3000');
 });
