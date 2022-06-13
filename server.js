@@ -4,6 +4,7 @@ const MAXIMUM_PLAYERS = 4;
 const TIME_LIMIT = 30;
 
 var config = new Config();
+const PORT = process.env.PORT || 3000;
 
 var path = require('path');
 const express = require('express');
@@ -65,6 +66,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3000, () => {
-    console.log('listening on *:3000');
+server.listen(PORT, () => {
+    console.log('listening on *:', PORT);
 });
