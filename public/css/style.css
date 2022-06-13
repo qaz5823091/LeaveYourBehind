@@ -7,17 +7,21 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-a:link {
-    color: black;
-}
-
 .container {
     display: block;
     width: 50%;
     margin: 0 auto;
 }
 
-ul {
+.button {
+    color: darkblue;
+}
+
+ol {
+    list-style-type:disc;
+}
+
+.reference-list {
     list-style-type: none;
     text-align: center;
 }
@@ -47,6 +51,7 @@ h3 {
 }
 
 .sub-title {
+    color: black;
     display: inline-block;
     text-align: left;
 }

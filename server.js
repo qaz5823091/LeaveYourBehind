@@ -15,10 +15,13 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + 'public/index.html');
-});
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    express.static(
+        path.resolve(__dirname, "public/"),
+        {index: "introduction.html"}
+    )
+);
 
 console.log("Server is running!");
 var client_sockets = [];
@@ -59,6 +62,7 @@ io.on('connection', (socket) => {
     function getMessage(data) {
         if (data['status'] == 'end') {
             client_sockets = [];
+            config.resetTable();
         }
     }
 
