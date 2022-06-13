@@ -6,20 +6,23 @@ const TIME_LIMIT = 30;
 var config = new Config();
 
 var express = require('express');
+var path = require('path');
 var app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
 
 // mount on port 3000
 const PORT = process.env.PORT || 3000;
-var server = app.listen(PORT);
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + 'public/index.html');
+});
 
 console.log("Server is running!");
-
-var socket = require('socket.io');
 var client_sockets = [];
-var io = socket(server);
-
 
 io.sockets.on('connection', newConnection);
 function newConnection(socket) {
@@ -64,53 +67,7 @@ function newConnection(socket) {
     socket.on('disconnect', (id) => {
     });
 }
-/*
-io.on('connection', socket => {
-    console.log(socket.id);
-    socket.on('joinRoom', ({username, room}) => {
-        const user = userJoin(socket.id, username, room);
 
-        socket.join(user.room);
-
-        socket.emit('message', `Welcome to ${user.room}`);
-
-        console.log(getAllRoomNumbers());
-        socket.broadcast.emit('roomNumber', {
-            numbers: getAllRoomNumbers()
-        });
-
-        socket.broadcast
-            .to(user.room)
-            .emit(
-                'message',
-                `${user.username} has joined the room.`
-            );
-
-        io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getRoomUsers(user.room)
-        });
-    });
-
-    socket.on('chatMessage', msg => {
-        const user = getCurrentUser(socket.id);
-        io.to(user.room).emit('message', msg);
-    });
-
-    socket.on('disconnect', () => {
-        const user = userLeave(socket.id);
-
-        if (user) {
-            io.to(user.room).emit(
-                'message',
-                `${user.username} has left the room`
-            );
-
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: getRoomUsers(user.room)
-            });
-        }
-    });
+server.listen(PORT, () => {
+    console.log('listening on *:', PORT);
 });
-*/
