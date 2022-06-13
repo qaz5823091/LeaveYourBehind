@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+canvas {
+    border: 2px black solid;
+    display: block;
+    margin: 5% auto;
+}
